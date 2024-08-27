@@ -99,33 +99,12 @@ int main(int argc, char *argv[]) {
   // To select an adapter we have to use Server->StartTo("192.168.x.y").
   // Start() is the same of StartTo("0.0.0.0");
   Error = Server->Start();
-  if (Error == 0) {
-    // Now the server is running ... wait a key to terminate
-    getchar();
-  } else
+  if (!Error == 0) 
     printf("%s\n", SrvErrorText(Error).c_str());
 
-  // If you got a start error:
-  // Windows - most likely you ar running the server in a pc on wich is
-  //           installed step 7 : open a command prompt and type
-  //             "net stop s7oiehsx"    (Win32) or
-  //             "net stop s7oiehsx64"  (Win64)
-  //           And after this test :
-  //             "net start s7oiehsx"   (Win32) or
-  //             "net start s7oiehsx64" (Win64)
-  // Unix - you need root rights :-( because the isotcp port (102) is
-  //        low and so it's considered "privileged".
+  for (;;);
 
   Server->Stop(); // <- not strictly needed, every server is stopped on deletion
                   //    and every client is gracefully disconnected.
   delete Server;
 }
-
-// Finally, this is a very minimalist (but working) server :
-// int main(int argc, char* argv[])
-// {
-//    TS7Server *Server = new TS7Server;
-//    Server->Start();
-//    getchar();
-//    delete Server;
-// }
