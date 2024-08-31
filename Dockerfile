@@ -2,11 +2,15 @@ FROM alpine:latest
 
 WORKDIR /build
 
-COPY snap7-full-1.4.2/snap7-full-1.4.2 ./snap7
+RUN apk update && apk upgrade && apk add --no-cache make g++ 7zip
+
+ADD https://sourceforge.net/projects/snap7/files/1.4.2/snap7-full-1.4.2.7z/download snap7-full.7z
+
+RUN 7z x snap7-full.7z
+RUN mv snap7-full-1.4.2 snap7
 
 WORKDIR ./snap7/build/unix
 
-RUN apk update && apk upgrade && apk add --no-cache make g++
 RUN make -f x86_64_linux.mk install
 
 WORKDIR /app
