@@ -4,7 +4,8 @@ WORKDIR /build
 
 RUN apk update && apk upgrade && apk add --no-cache make g++ 7zip
 
-ADD https://sourceforge.net/projects/snap7/files/1.4.2/snap7-full-1.4.2.7z/download snap7-full.7z
+# ADD https://sourceforge.net/projects/snap7/files/1.4.2/snap7-full-1.4.2.7z/download snap7-full.7z
+RUN wget https://sourceforge.net/projects/snap7/files/1.4.2/snap7-full-1.4.2.7z/download -O snap7-full.7z
 
 RUN 7z x snap7-full.7z
 RUN mv snap7-full-1.4.2 snap7
